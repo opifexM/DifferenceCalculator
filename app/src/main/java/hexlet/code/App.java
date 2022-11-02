@@ -1,7 +1,41 @@
 package hexlet.code;
 
-public class App {
-    public static void main(String[] args) {
-        System.out.println("Hello world!");
+import picocli.CommandLine;
+
+import java.io.File;
+import java.util.Map;
+import java.util.concurrent.Callable;
+
+@CommandLine.Command(name = "gendiff", mixinStandardHelpOptions = true, version = "checksum 4.0",
+        description = "Compares two configuration files and shows a difference.")
+public class App implements Callable {
+    @CommandLine.Parameters(description = "path to first file")
+    private File filepath1;
+
+    @CommandLine.Parameters(description = "path to second file")
+    private File filepath2;
+
+    @CommandLine.Option(names = {"-f", "--format"}, description = "output format [default: stylish]")
+    private String format = "stylish";
+
+
+    // this example implements Callable, so parsing, error handling and handling user
+    // requests for usage help or version help can be done with one line of code.
+    public static void main(String... args) {
+        int exitCode = new CommandLine(new App()).execute(args);
+        System.exit(exitCode);
+
+//        int exitCode = new CommandLine(new App()).execute(args);
+//
+
+    }
+
+    @Override
+    public Integer call() {
+        Map<String, String> fileMap1 = Parser.start(filepath1);
+        Map<String, String> fileMap2 = Parser.start(filepath2);
+        String report = Differ.generate(fileMap1, fileMap2);
+        System.out.println(report);
+        return 0;
     }
 }
