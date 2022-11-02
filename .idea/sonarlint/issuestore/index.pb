@@ -1,3 +1,0 @@
-
-C
-app/settings.gradle,8\d\8d3c07f8974e70359294765155c0890a1e1b8b72
