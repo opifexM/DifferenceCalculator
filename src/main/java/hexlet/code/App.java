@@ -19,15 +19,9 @@ public class App implements Callable {
     @CommandLine.Option(names = {"-f", "--format"}, description = "output format [default: stylish]")
     private String format = "stylish";
 
-
-    // this example implements Callable, so parsing, error handling and handling user
-    // requests for usage help or version help can be done with one line of code.
     public static void main(String... args) {
         int exitCode = new CommandLine(new App()).execute(args);
         System.exit(exitCode);
-
-//        int exitCode = new CommandLine(new App()).execute(args);
-//
 
     }
 

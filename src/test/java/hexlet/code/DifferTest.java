@@ -10,7 +10,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class DifferTest {
     @Test
     void differTest1() {
-        Map<String, String> fileMap1 = Map.of("host", "hexlet.io", "timeout", "50", "proxy", "123.234.53.22", "follow", "false");
+        Map<String, String> fileMap1 = Map.of("host", "hexlet.io", "timeout", "50",
+                "proxy", "123.234.53.22", "follow", "false");
         Map<String, String> fileMap2 = Map.of("timeout", "20", "verbose", "true", "host", "hexlet.io");
         String actual = Differ.generate(fileMap1, fileMap2);
         String expected = """
