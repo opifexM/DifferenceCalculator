@@ -3,6 +3,7 @@ package hexlet.code;
 import picocli.CommandLine;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.Callable;
 
@@ -31,7 +32,7 @@ public class App implements Callable {
     }
 
     @Override
-    public Integer call() {
+    public Integer call() throws IOException {
         Map<String, String> fileMap1 = Parser.start(filepath1);
         Map<String, String> fileMap2 = Parser.start(filepath2);
         String report = Differ.generate(fileMap1, fileMap2);

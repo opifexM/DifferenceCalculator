@@ -5,6 +5,8 @@ import java.util.TreeMap;
 
 public class Differ {
     public static String generate(Map<String, String> fileMap1, Map<String, String> fileMap2) {
+        System.out.println(fileMap1);
+        System.out.println(fileMap2);
         Map<String, String> report = new TreeMap<>();
         for (Map.Entry<String, String> entry1 : fileMap1.entrySet()) {
             String key1 = entry1.getKey();
