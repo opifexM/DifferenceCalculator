@@ -63,4 +63,53 @@ class DifferTest {
                 """;
         assertEquals(expected, actual);
     }
+
+    @Test
+    void differTest5() {
+        Map<String, String> fileMap1 = Map.ofEntries(
+                Map.entry("setting1","Some value"),
+                Map.entry("setting2","200"),
+                Map.entry("setting3","true"),
+                Map.entry("key1","value1"),
+                Map.entry("numbers1","[1, 2, 3, 4]"),
+                Map.entry("numbers2","[2, 3, 4, 5]"),
+                Map.entry("id","45"),
+                Map.entry("default","null"),
+                Map.entry("checked","false"),
+                Map.entry("numbers3","[3, 4, 5]"),
+                Map.entry("chars1","[\"a\", \"b\", \"c\"]"),
+                Map.entry("chars2","[\"d\", \"e\", \"f\"]")
+        );
+        Map<String, String> fileMap2 = Map.ofEntries(
+                Map.entry( "setting1","Another value"),
+                Map.entry("setting2","300"),
+                Map.entry("setting3","none"),
+                Map.entry("key2","value2"),
+                Map.entry("numbers1","[1, 2, 3, 4]"),
+                Map.entry("numbers2","[22, 33, 44, 55]"),
+                Map.entry("id","null"),
+                Map.entry("default","[\"value1\", \"value2\"]"),
+                Map.entry("checked","true"),
+                Map.entry("numbers4","[4, 5, 6]"),
+                Map.entry("chars1","[\"a\", \"b\", \"c\"]"),
+                Map.entry("chars2","false"),
+                Map.entry("obj1","""
+                        {
+                        "nestedKey","value",
+                        "isNested",true
+                }""")
+        );
+        String actual = Differ.generate(fileMap1, fileMap2);
+        String expected = """
+                {
+                  - follow: false
+                    host: hexlet.io
+                  - proxy: 123.234.53.22
+                  + timeout: 20
+                  - timeout: 50
+                  + verbose: true
+                }
+                """;
+        assertEquals(expected, actual);
+    }
 }

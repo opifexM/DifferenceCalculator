@@ -2,7 +2,6 @@ package hexlet.code;
 
 import picocli.CommandLine;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.Callable;
@@ -11,10 +10,10 @@ import java.util.concurrent.Callable;
         description = "Compares two configuration files and shows a difference.")
 public class App implements Callable {
     @CommandLine.Parameters(description = "path to first file")
-    private File filepath1;
+    private String filepath1;
 
     @CommandLine.Parameters(description = "path to second file")
-    private File filepath2;
+    private String filepath2;
 
     @CommandLine.Option(names = {"-f", "--format"}, description = "output format [default: stylish]")
     private String format = "stylish";
