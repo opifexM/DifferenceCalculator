@@ -4,6 +4,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/0884c1a4eb3d767d8d22/maintainability)](https://codeclimate.com/github/opifexM/java-project-71/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/0884c1a4eb3d767d8d22/test_coverage)](https://codeclimate.com/github/opifexM/java-project-71/test_coverage)
 [![asciicast](https://asciinema.org/a/YGXfIKmF1byReFZf3F5omESbm.svg)](https://asciinema.org/a/YGXfIKmF1byReFZf3F5omESbm)
+[![asciicast](https://asciinema.org/a/vTu6lIwIB04r4yINbxBZxXMD4.svg)](https://asciinema.org/a/vTu6lIwIB04r4yINbxBZxXMD4)
 
 ## Difference Calculator
 Compares two configuration files and shows a difference.
