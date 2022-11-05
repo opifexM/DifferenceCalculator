@@ -14,7 +14,7 @@ public final class Parser {
     private Parser() {
     }
 
-    public static Map<String, String> start(String fileName) throws IOException {
+    public static Map<String, Object> start(String fileName) throws IOException {
         Path path = Path.of(fileName);
         if (!Files.isRegularFile(path) || Files.notExists(path)) {
             throw new IOException("File '" + fileName + "' cannot be read.");
@@ -29,13 +29,13 @@ public final class Parser {
         throw new IOException("File '" + fileName + "' not support.");
     }
 
-    private static Map<String, String> readYaml(File file) throws IOException {
+    private static Map<String, Object> readYaml(File file) throws IOException {
         ObjectMapper mapper = new YAMLMapper();
         return mapper.readValue(file, new TypeReference<>() {
         });
     }
 
-    public static Map<String, String> readJson(File file) throws IOException {
+    public static Map<String, Object> readJson(File file) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         return mapper.readValue(file, new TypeReference<>() {
         });
