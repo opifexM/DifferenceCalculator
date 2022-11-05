@@ -13,21 +13,10 @@ public final class Differ {
         return Formatter.selectFormat(differenceMap, format);
     }
 
-    private static Map<String, Map<Integer, Object>> findDifference(Map<String, Object> fileMap1Read,
-                                                                    Map<String, Object> fileMap2Read) {
-        Map<String, Object> fileMap1 = new HashMap<>();
-        Map<String, Object> fileMap2 = new HashMap<>();
-        for (Map.Entry<String, Object> entry : fileMap1Read.entrySet()) {
-            String key = entry.getKey();
-            Object value = entry.getValue();
-            fileMap1.put(key, value == null ? "null" : value);
-        }
-        for (Map.Entry<String, Object> entry : fileMap2Read.entrySet()) {
-            String key = entry.getKey();
-            Object value = entry.getValue();
-            fileMap2.put(key, value == null ? "null" : value);
-        }
-
+    private static Map<String, Map<Integer, Object>> findDifference(Map<String, Object> fileMap1ReadOnly,
+                                                                    Map<String, Object> fileMap2ReadOnly) {
+        Map<String, Object> fileMap1 = copyOfMap(fileMap1ReadOnly);
+        Map<String, Object> fileMap2 = copyOfMap(fileMap2ReadOnly);
         Map<String, Map<Integer, Object>> report = new TreeMap<>();
         for (Map.Entry<String, Object> entry1 : fileMap1.entrySet()) {
             String key1 = entry1.getKey();
@@ -49,6 +38,16 @@ public final class Differ {
             addValueToReport(report, entry2.getKey(), entry2.getValue(), 1);
         }
         return report;
+    }
+
+    private static Map<String, Object> copyOfMap(Map<String, Object> fileMapReadOnly) {
+        Map<String, Object> fileMap = new HashMap<>();
+        for (Map.Entry<String, Object> entry : fileMapReadOnly.entrySet()) {
+            String key = entry.getKey();
+            Object value = entry.getValue();
+            fileMap.put(key, value == null ? "null" : value);
+        }
+        return fileMap;
     }
 
     private static void addValueToReport(Map<String, Map<Integer, Object>> report, String key, Object value,
