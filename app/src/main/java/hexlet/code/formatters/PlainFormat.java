@@ -1,22 +1,24 @@
 package hexlet.code.formatters;
 
+import hexlet.code.Status;
+
 import java.util.Map;
 
 public final class PlainFormat {
     private PlainFormat() {
     }
 
-    public static String report(Map<String, Map<Integer, Object>> differenceMap) {
+    public static String report(Map<String, Map<Status, Object>> differenceMap) {
         StringBuilder sbReport = new StringBuilder();
         sbReport.append("\n");
 
-        for (Map.Entry<String, Map<Integer, Object>> entry : differenceMap.entrySet()) {
+        for (Map.Entry<String, Map<Status, Object>> entry : differenceMap.entrySet()) {
             String key = entry.getKey();
-            Map<Integer, Object> valueMap = entry.getValue();
+            Map<Status, Object> valueMap = entry.getValue();
 
             if (valueMap.size() > 1) {
-                Object oldValue = createString(valueMap.get(-1));
-                Object newValue = createString(valueMap.get(1));
+                Object oldValue = createString(valueMap.get(Status.DELETED));
+                Object newValue = createString(valueMap.get(Status.ADDED));
                 sbReport
                         .append("Property '")
                         .append(key)
@@ -26,17 +28,17 @@ public final class PlainFormat {
                         .append(newValue)
                         .append("\n");
             } else {
-                for (Map.Entry<Integer, Object> objectEntry : valueMap.entrySet()) {
-                    Integer typeIndex = objectEntry.getKey();
+                for (Map.Entry<Status, Object> objectEntry : valueMap.entrySet()) {
+                    Status status = objectEntry.getKey();
                     Object value = objectEntry.getValue();
-                    if (typeIndex == 1) {
+                    if (status == Status.ADDED) {
                         sbReport
                                 .append("Property '")
                                 .append(key)
                                 .append("' was added with value: ")
                                 .append(createString(value))
                                 .append("\n");
-                    } else if (typeIndex == -1) {
+                    } else if (status == Status.DELETED) {
                         sbReport
                                 .append("Property '")
                                 .append(key)

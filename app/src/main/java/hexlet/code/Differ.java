@@ -9,15 +9,15 @@ public final class Differ {
     }
 
     public static String generate(Map<String, Object> fileMap1Read, Map<String, Object> fileMap2Read, String format) {
-        Map<String, Map<Integer, Object>> differenceMap = findDifference(fileMap1Read, fileMap2Read);
+        Map<String, Map<Status, Object>> differenceMap = findDifference(fileMap1Read, fileMap2Read);
         return Formatter.selectFormat(differenceMap, format);
     }
 
-    private static Map<String, Map<Integer, Object>> findDifference(Map<String, Object> fileMap1ReadOnly,
+    private static Map<String, Map<Status, Object>> findDifference(Map<String, Object> fileMap1ReadOnly,
                                                                     Map<String, Object> fileMap2ReadOnly) {
         Map<String, Object> fileMap1 = copyOfMap(fileMap1ReadOnly);
         Map<String, Object> fileMap2 = copyOfMap(fileMap2ReadOnly);
-        Map<String, Map<Integer, Object>> report = new TreeMap<>();
+        Map<String, Map<Status, Object>> report = new TreeMap<>();
         for (Map.Entry<String, Object> entry1 : fileMap1.entrySet()) {
             String key1 = entry1.getKey();
             Object value1 = entry1.getValue();
@@ -25,17 +25,17 @@ public final class Differ {
             boolean isValueSame = isKeyExist && fileMap2.get(key1).equals(value1);
 
             if (isKeyExist && isValueSame) {
-                addValueToReport(report, key1, value1, 0);
+                addValueToReport(report, key1, value1, Status.UNCHANGED);
             } else {
-                addValueToReport(report, key1, value1, -1);
+                addValueToReport(report, key1, value1, Status.DELETED);
                 if (isKeyExist) {
-                    addValueToReport(report, key1, fileMap2.get(key1), 1);
+                    addValueToReport(report, key1, fileMap2.get(key1), Status.ADDED);
                 }
             }
             fileMap2.remove(key1);
         }
         for (Map.Entry<String, Object> entry2 : fileMap2.entrySet()) {
-            addValueToReport(report, entry2.getKey(), entry2.getValue(), 1);
+            addValueToReport(report, entry2.getKey(), entry2.getValue(), Status.ADDED);
         }
         return report;
     }
@@ -50,9 +50,9 @@ public final class Differ {
         return fileMap;
     }
 
-    private static void addValueToReport(Map<String, Map<Integer, Object>> report, String key, Object value,
-                                         int typeIndex) {
+    private static void addValueToReport(Map<String, Map<Status, Object>> report, String key, Object value,
+                                         Status status) {
         report.computeIfAbsent(key, k -> new TreeMap<>());
-        report.get(key).put(typeIndex, value);
+        report.get(key).put(status, value);
     }
 }

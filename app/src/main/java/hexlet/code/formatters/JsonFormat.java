@@ -3,6 +3,7 @@ package hexlet.code.formatters;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import hexlet.code.Status;
 import netscape.javascript.JSException;
 
 import java.util.Map;
@@ -12,16 +13,16 @@ public final class JsonFormat {
     private JsonFormat() {
     }
 
-    public static String report(Map<String, Map<Integer, Object>> differenceMap) {
+    public static String report(Map<String, Map<Status, Object>> differenceMap) {
         Map<String, Object> reportMap = new TreeMap<>();
 
-        for (Map.Entry<String, Map<Integer, Object>> entry : differenceMap.entrySet()) {
+        for (Map.Entry<String, Map<Status, Object>> entry : differenceMap.entrySet()) {
             String key = entry.getKey();
-            Map<Integer, Object> valueMap = entry.getValue();
-            for (Map.Entry<Integer, Object> valueEntry : valueMap.entrySet()) {
-                Integer typeIndex = valueEntry.getKey();
+            Map<Status, Object> valueMap = entry.getValue();
+            for (Map.Entry<Status, Object> valueEntry : valueMap.entrySet()) {
+                Status status = valueEntry.getKey();
                 Object value = valueEntry.getValue();
-                if (typeIndex != -1) {
+                if (status != Status.DELETED) {
                     reportMap.put(key, value);
                 }
             }

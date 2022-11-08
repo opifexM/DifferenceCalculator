@@ -10,7 +10,7 @@ public final class Formatter {
     private Formatter() {
     }
 
-    public static String selectFormat(Map<String, Map<Integer, Object>> differenceMap, String format) {
+    public static String selectFormat(Map<String, Map<Status, Object>> differenceMap, String format) {
         return switch (format) {
             case "plain" -> PlainFormat.report(differenceMap);
             case "json" -> JsonFormat.report(differenceMap);
