@@ -51,9 +51,15 @@ public final class PlainFormat {
     }
 
     private static Object createString(Object value) {
-        if (value instanceof String && !value.equals("null")) {
+        if (value.equals("null")) {
+            return value;
+        } else if (value instanceof String) {
             return "'" + value + "'";
+        } else if (value instanceof Integer) {
+            return value;
+        } else if (value instanceof Boolean) {
+            return value;
         }
-        return value;
+        return "[complex value]";
     }
 }

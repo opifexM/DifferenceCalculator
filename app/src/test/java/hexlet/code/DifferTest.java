@@ -11,13 +11,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class DifferTest {
-    private final Path resourceDirectory = Paths.get("src","test","resources");
+    private final Path resourceDirectory = Paths.get("src","test","resources","fixtures");
     private final String absolutePath = resourceDirectory.toFile().getAbsolutePath();
 
 
     @Test
     void testResourceDirectory() {
-        assertTrue(absolutePath.endsWith("src/test/resources"));
+        assertTrue(absolutePath.endsWith("src/test/resources/fixtures"));
     }
 
     @Test
@@ -155,15 +155,15 @@ class DifferTest {
         String file2 = "file4.json";
         String formatName = "plain";
         String expected = """
-                Property 'chars2' was updated. From [d, e, f] to false
+                Property 'chars2' was updated. From [complex value] to false
                 Property 'checked' was updated. From false to true
-                Property 'default' was updated. From null to [value1, value2]
+                Property 'default' was updated. From null to [complex value]
                 Property 'id' was updated. From 45 to null
                 Property 'key1' was removed
                 Property 'key2' was added with value: 'value2'
-                Property 'numbers2' was updated. From [2, 3, 4, 5] to [22, 33, 44, 55]
+                Property 'numbers2' was updated. From [complex value] to [complex value]
                 Property 'numbers3' was removed
-                Property 'numbers4' was added with value: [4, 5, 6]
+                Property 'numbers4' was added with value: [complex value]
                 Property 'setting1' was updated. From 'Some value' to 'Another value'
                 Property 'setting2' was updated. From 200 to 300
                 Property 'setting3' was updated. From true to 'none'
