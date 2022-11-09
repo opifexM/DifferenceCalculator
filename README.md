@@ -16,7 +16,6 @@ Compares two configuration files and shows a difference.
 - .json
 - .yml
 
-
 *Output formats:*
 - stylish
 - plain
