@@ -32,7 +32,7 @@ public final class StylishFormat {
             }
         }
 
-        sbReport.append("}\n");
+        sbReport.append("}");
         return sbReport.toString();
     }
 }

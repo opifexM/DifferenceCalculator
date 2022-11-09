@@ -33,8 +33,7 @@ class DifferTest {
                   - timeout: 50
                   + timeout: 20
                   + verbose: true
-                }
-                """;
+                }""";
         String actual = Differ.generate(absolutePath + "/" + file1, absolutePath
                 + "/" + file2, formatName);
         assertEquals(expected, actual);
@@ -48,8 +47,7 @@ class DifferTest {
         String expected = """                
                 {
                   - host: hexlet.io
-                }
-                """;
+                }""";
         String actual = Differ.generate(absolutePath + "/" + file1, absolutePath
                 + "/" + file2, formatName);
         assertEquals(expected, actual);
@@ -63,8 +61,7 @@ class DifferTest {
         String expected = """                
                 {
                   + timeout: 20
-                }
-                """;
+                }""";
         String actual = Differ.generate(absolutePath + "/" + file1, absolutePath
                 + "/" + file2, formatName);
         assertEquals(expected, actual);
@@ -77,8 +74,7 @@ class DifferTest {
         String formatName = "stylish";
         String expected = """                
                 {
-                }
-                """;
+                }""";
         String actual = Differ.generate(absolutePath + "/" + file1, absolutePath
                 + "/" + file2, formatName);
         assertEquals(expected, actual);
@@ -113,8 +109,7 @@ class DifferTest {
                   + setting2: 300
                   - setting3: true
                   + setting3: none
-                }
-                """;
+                }""";
         String actual = Differ.generate(absolutePath + "/" + file1, absolutePath
                 + "/" + file2, formatName);
         assertEquals(expected, actual);
@@ -148,8 +143,7 @@ class DifferTest {
                   + setting2: 300
                   - setting3: true
                   + setting3: none
-                }
-                """;
+                }""";
         String actual = Differ.generate(absolutePath + "/" + file1, absolutePath
                 + "/" + file2, formatName);
         assertEquals(expected, actual);
