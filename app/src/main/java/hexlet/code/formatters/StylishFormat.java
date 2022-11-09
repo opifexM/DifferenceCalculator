@@ -10,7 +10,7 @@ public final class StylishFormat {
 
     public static String report(Map<String, Map<ParserStatus, Object>> differenceMap) {
         StringBuilder sbReport = new StringBuilder();
-        sbReport.append("\n{\n");
+        sbReport.append("{\n");
 
         for (Map.Entry<String, Map<ParserStatus, Object>> entry : differenceMap.entrySet()) {
             String key = entry.getKey();
