@@ -18,6 +18,9 @@ public final class Differ {
         return Formatter.selectFormat(differenceMap, format);
     }
 
+    public static String generate(String filepath1, String filepath2) throws IOException {
+        return generate(filepath1, filepath2, "stylish");
+    }
     private static Map<String, Object> readData(String filepath) throws IOException {
         String fileData = readFile(filepath);
         String fileExtension = readFileExtension(filepath);
