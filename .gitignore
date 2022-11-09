@@ -1,7 +1,6 @@
 /.idea/
 /app/build/
 /app/.gradle
-/app/out
 .metadata
 tmp/
 *.tmp
@@ -23,3 +22,5 @@ target/
 .repository/
 *.iml
 *.iws
+/app/out/
+/app/out/production/classes/

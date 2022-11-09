@@ -3,24 +3,28 @@ package hexlet.code;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.Map;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class DifferTest {
+    private final Path resourceDirectory = Paths.get("src","test","resources");
+    private final String absolutePath = resourceDirectory.toFile().getAbsolutePath();
+
+
     @Test
-    void testDifferStylish1() {
-        Map<String, Object> fileMap1 = Map.of(
-                "host", "hexlet.io",
-                "timeout", 50,
-                "proxy", "123.234.53.22",
-                "follow", false);
-        Map<String, Object> fileMap2 = Map.of(
-                "timeout", 20,
-                "verbose", true,
-                "host", "hexlet.io");
-        String actual = Differ.generate(fileMap1, fileMap2, "stylish");
+    void testResourceDirectory() {
+        assertTrue(absolutePath.endsWith("src/test/resources"));
+    }
+
+    @Test
+    void testDifferStylish1() throws IOException {
+        String file1 = "file1.json";
+        String file2 = "file2.json";
+        String formatName = "stylish";
         String expected = """
                 
                 {
@@ -32,81 +36,63 @@ class DifferTest {
                   + verbose: true
                 }
                 """;
+        String actual = Differ.generate(absolutePath + "/" + file1, absolutePath
+                + "/" + file2, formatName);
         assertEquals(expected, actual);
     }
 
     @Test
-    void testDifferStylish2() {
-        Map<String, Object> fileMap1 = Map.of("host", "hexlet.io");
-        Map<String, Object> fileMap2 = Map.of();
-        String actual = Differ.generate(fileMap1, fileMap2, "stylish");
+    void testDifferStylish2() throws IOException {
+        String file1 = "file5.json";
+        String file2 = "file0.json";
+        String formatName = "stylish";
         String expected = """
                 
                 {
                   - host: hexlet.io
                 }
                 """;
+        String actual = Differ.generate(absolutePath + "/" + file1, absolutePath
+                + "/" + file2, formatName);
         assertEquals(expected, actual);
     }
 
     @Test
-    void testDifferStylish3() {
-        Map<String, Object> fileMap1 = Map.of();
-        Map<String, Object> fileMap2 = Map.of("timeout", 20);
-        String actual = Differ.generate(fileMap1, fileMap2, "stylish");
+    void testDifferStylish3() throws IOException {
+        String file1 = "file0.json";
+        String file2 = "file6.json";
+        String formatName = "stylish";
         String expected = """
                 
                 {
                   + timeout: 20
                 }
                 """;
+        String actual = Differ.generate(absolutePath + "/" + file1, absolutePath
+                + "/" + file2, formatName);
         assertEquals(expected, actual);
     }
 
     @Test
-    void testDifferStylish4() {
-        Map<String, Object> fileMap1 = Map.of();
-        Map<String, Object> fileMap2 = Map.of();
-        String actual = Differ.generate(fileMap1, fileMap2, "stylish");
+    void testDifferStylish4() throws IOException {
+        String file1 = "file0.json";
+        String file2 = "file0.json";
+        String formatName = "stylish";
         String expected = """
                 
                 {
                 }
                 """;
+        String actual = Differ.generate(absolutePath + "/" + file1, absolutePath
+                + "/" + file2, formatName);
         assertEquals(expected, actual);
     }
 
     @Test
-    void testDifferStylish5() {
-        Map<String, Object> fileMap1 = Map.ofEntries(
-                Map.entry("setting1", "Some value"),
-                Map.entry("setting2", 200),
-                Map.entry("setting3", true),
-                Map.entry("key1", "value1"),
-                Map.entry("numbers1", Arrays.asList(1, 2, 3, 4)),
-                Map.entry("numbers2", Arrays.asList(2, 3, 4, 5)),
-                Map.entry("id", 45),
-                Map.entry("default", "null"),
-                Map.entry("checked", false),
-                Map.entry("numbers3", Arrays.asList(3, 4, 5)),
-                Map.entry("chars1", Arrays.asList("a", "b", "c")),
-                Map.entry("chars2", Arrays.asList("d", "e", "f"))
-        );
-        Map<String, Object> fileMap2 = Map.ofEntries(
-                Map.entry("setting1", "Another value"),
-                Map.entry("setting2", 300),
-                Map.entry("setting3", "none"),
-                Map.entry("key2", "value2"),
-                Map.entry("numbers1", Arrays.asList(1, 2, 3, 4)),
-                Map.entry("numbers2", Arrays.asList(22, 33, 44, 55)),
-                Map.entry("id", "null"),
-                Map.entry("default", Arrays.asList("value1", "value2")),
-                Map.entry("checked", true),
-                Map.entry("numbers4", Arrays.asList(4, 5, 6)),
-                Map.entry("chars1", Arrays.asList("a", "b", "c")),
-                Map.entry("chars2", false));
-
-        String actual = Differ.generate(fileMap1, fileMap2, "stylish");
+    void testDifferStylish5() throws IOException {
+        String file1 = "file3.json";
+        String file2 = "file4.json";
+        String formatName = "stylish";
         String expected = """
                 
                 {
@@ -134,42 +120,54 @@ class DifferTest {
                   + setting3: none
                 }
                 """;
+        String actual = Differ.generate(absolutePath + "/" + file1, absolutePath
+                + "/" + file2, formatName);
+        assertEquals(expected, actual);
+    }
+    @Test
+    void testDifferStylishYaml1() throws IOException {
+        String file1 = "file7.yml";
+        String file2 = "file8.yml";
+        String formatName = "stylish";
+        String expected = """
+                
+                {
+                    chars1: [a, b, c]
+                  - chars2: [d, e, f]
+                  + chars2: false
+                  - checked: false
+                  + checked: true
+                  - default: null
+                  + default: [value1, value2]
+                  - id: 45
+                  + id: null
+                  - key1: value1
+                  + key2: value2
+                    numbers1: [1, 2, 3, 4]
+                  - numbers2: [2, 3, 4, 5]
+                  + numbers2: [22, 33, 44, 55]
+                  - numbers3: [3, 4, 5]
+                  + numbers4: [4, 5, 6]
+                  - setting1: Some value
+                  + setting1: Another value
+                  - setting2: 200
+                  + setting2: 300
+                  - setting3: true
+                  + setting3: none
+                }
+                """;
+        String actual = Differ.generate(absolutePath + "/" + file1, absolutePath
+                + "/" + file2, formatName);
         assertEquals(expected, actual);
     }
 
     @Test
-    void testDifferPlain1() {
-        Map<String, Object> fileMap1 = Map.ofEntries(
-                Map.entry("setting1", "Some value"),
-                Map.entry("setting2", 200),
-                Map.entry("setting3", true),
-                Map.entry("key1", "value1"),
-                Map.entry("numbers1", Arrays.asList(1, 2, 3, 4)),
-                Map.entry("numbers2", Arrays.asList(2, 3, 4, 5)),
-                Map.entry("id", 45),
-                Map.entry("default", "null"),
-                Map.entry("checked", false),
-                Map.entry("numbers3", Arrays.asList(3, 4, 5)),
-                Map.entry("chars1", Arrays.asList("a", "b", "c")),
-                Map.entry("chars2", Arrays.asList("d", "e", "f"))
-        );
-        Map<String, Object> fileMap2 = Map.ofEntries(
-                Map.entry("setting1", "Another value"),
-                Map.entry("setting2", 300),
-                Map.entry("setting3", "none"),
-                Map.entry("key2", "value2"),
-                Map.entry("numbers1", Arrays.asList(1, 2, 3, 4)),
-                Map.entry("numbers2", Arrays.asList(22, 33, 44, 55)),
-                Map.entry("id", "null"),
-                Map.entry("default", Arrays.asList("value1", "value2")),
-                Map.entry("checked", true),
-                Map.entry("numbers4", Arrays.asList(4, 5, 6)),
-                Map.entry("chars1", Arrays.asList("a", "b", "c")),
-                Map.entry("chars2", false));
-
-        String actual = Differ.generate(fileMap1, fileMap2, "plain");
+    void testDifferPlain1() throws IOException {
+        String file1 = "file3.json";
+        String file2 = "file4.json";
+        String formatName = "plain";
         String expected = """
-                
+
                 Property 'chars2' was updated. From [d, e, f] to false
                 Property 'checked' was updated. From false to true
                 Property 'default' was updated. From null to [value1, value2]
@@ -183,75 +181,57 @@ class DifferTest {
                 Property 'setting2' was updated. From 200 to 300
                 Property 'setting3' was updated. From true to 'none'
                 """;
+        String actual = Differ.generate(absolutePath + "/" + file1, absolutePath
+                + "/" + file2, formatName);
         assertEquals(expected, actual);
     }
 
     @Test
-    void testDifferPlain2() {
-        Map<String, Object> fileMap1 = Map.of("host", "hexlet.io");
-        Map<String, Object> fileMap2 = Map.of();
-        String actual = Differ.generate(fileMap1, fileMap2, "plain");
+    void testDifferPlain2() throws IOException {
+        String file1 = "file5.json";
+        String file2 = "file0.json";
+        String formatName = "plain";
         String expected = """
-                
+
                 Property 'host' was removed
                 """;
+        String actual = Differ.generate(absolutePath + "/" + file1, absolutePath
+                + "/" + file2, formatName);
         assertEquals(expected, actual);
     }
 
     @Test
-    void testDifferPlain3() {
-        Map<String, Object> fileMap1 = Map.of();
-        Map<String, Object> fileMap2 = Map.of("timeout", 20);
-        String actual = Differ.generate(fileMap1, fileMap2, "plain");
+    void testDifferPlain3() throws IOException {
+        String file1 = "file0.json";
+        String file2 = "file6.json";
+        String formatName = "plain";
         String expected = """
-                
+
                 Property 'timeout' was added with value: 20
                 """;
+        String actual = Differ.generate(absolutePath + "/" + file1, absolutePath
+                + "/" + file2, formatName);
         assertEquals(expected, actual);
     }
 
     @Test
-    void testDifferPlain4() {
-        Map<String, Object> fileMap1 = Map.of();
-        Map<String, Object> fileMap2 = Map.of();
-        String actual = Differ.generate(fileMap1, fileMap2, "plain");
+    void testDifferPlain4() throws IOException {
+        String file1 = "file0.json";
+        String file2 = "file0.json";
+        String formatName = "plain";
         String expected = """
-                
+
                 """;
+        String actual = Differ.generate(absolutePath + "/" + file1, absolutePath
+                + "/" + file2, formatName);
         assertEquals(expected, actual);
     }
 
     @Test
-    void testDifferJson1() {
-        Map<String, Object> fileMap1 = Map.ofEntries(
-                Map.entry("setting1", "Some value"),
-                Map.entry("setting2", 200),
-                Map.entry("setting3", true),
-                Map.entry("key1", "value1"),
-                Map.entry("numbers1", Arrays.asList(1, 2, 3, 4)),
-                Map.entry("numbers2", Arrays.asList(2, 3, 4, 5)),
-                Map.entry("id", 45),
-                Map.entry("default", "null"),
-                Map.entry("checked", false),
-                Map.entry("numbers3", Arrays.asList(3, 4, 5)),
-                Map.entry("chars1", Arrays.asList("a", "b", "c")),
-                Map.entry("chars2", Arrays.asList("d", "e", "f"))
-        );
-        Map<String, Object> fileMap2 = Map.ofEntries(
-                Map.entry("setting1", "Another value"),
-                Map.entry("setting2", 300),
-                Map.entry("setting3", "none"),
-                Map.entry("key2", "value2"),
-                Map.entry("numbers1", Arrays.asList(1, 2, 3, 4)),
-                Map.entry("numbers2", Arrays.asList(22, 33, 44, 55)),
-                Map.entry("id", "null"),
-                Map.entry("default", Arrays.asList("value1", "value2")),
-                Map.entry("checked", true),
-                Map.entry("numbers4", Arrays.asList(4, 5, 6)),
-                Map.entry("chars1", Arrays.asList("a", "b", "c")),
-                Map.entry("chars2", false));
-
-        String actual = Differ.generate(fileMap1, fileMap2, "json");
+    void testDifferJson1() throws IOException {
+        String file1 = "file3.json";
+        String file2 = "file4.json";
+        String formatName = "json";
         String expected = """
                 {
                   "chars1" : [ "a", "b", "c" ],
@@ -267,36 +247,44 @@ class DifferTest {
                   "setting2" : 300,
                   "setting3" : "none"
                 }""";
+        String actual = Differ.generate(absolutePath + "/" + file1, absolutePath
+                + "/" + file2, formatName);
         assertEquals(expected, actual);
     }
 
     @Test
-    void testDifferJson2() {
-        Map<String, Object> fileMap1 = Map.of("host", "hexlet.io");
-        Map<String, Object> fileMap2 = Map.of();
-        String actual = Differ.generate(fileMap1, fileMap2, "json");
+    void testDifferJson2() throws IOException {
+        String file1 = "file5.json";
+        String file2 = "file0.json";
+        String formatName = "json";
         String expected = "{ }";
+        String actual = Differ.generate(absolutePath + "/" + file1, absolutePath
+                + "/" + file2, formatName);
         assertEquals(expected, actual);
     }
 
     @Test
-    void testDifferJson3() {
-        Map<String, Object> fileMap1 = Map.of();
-        Map<String, Object> fileMap2 = Map.of("timeout", 20);
-        String actual = Differ.generate(fileMap1, fileMap2, "json");
+    void testDifferJson3() throws IOException {
+        String file1 = "file0.json";
+        String file2 = "file6.json";
+        String formatName = "json";
         String expected = """
                 {
                   "timeout" : 20
                 }""";
+        String actual = Differ.generate(absolutePath + "/" + file1, absolutePath
+                + "/" + file2, formatName);
         assertEquals(expected, actual);
     }
 
     @Test
-    void testDifferJson4() {
-        Map<String, Object> fileMap1 = Map.of();
-        Map<String, Object> fileMap2 = Map.of();
-        String actual = Differ.generate(fileMap1, fileMap2, "json");
+    void testDifferJson4() throws IOException {
+        String file1 = "file0.json";
+        String file2 = "file0.json";
+        String formatName = "json";
         String expected = "{ }";
+        String actual = Differ.generate(absolutePath + "/" + file1, absolutePath
+                + "/" + file2, formatName);
         assertEquals(expected, actual);
     }
 }

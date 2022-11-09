@@ -3,7 +3,6 @@ package hexlet.code;
 import picocli.CommandLine;
 
 import java.io.IOException;
-import java.util.Map;
 import java.util.concurrent.Callable;
 
 @CommandLine.Command(name = "gendiff", mixinStandardHelpOptions = true, version = "checksum 4.0",
@@ -26,10 +25,7 @@ public class App implements Callable {
 
     @Override
     public Integer call() throws IOException {
-        Map<String, Object> fileMap1 = Parser.start(filepath1);
-        Map<String, Object> fileMap2 = Parser.start(filepath2);
-        String report = Differ.generate(fileMap1, fileMap2, formatName);
-        System.out.println(report);
+        System.out.println(Differ.generate(filepath1, filepath2, formatName));
         return 0;
     }
 }
