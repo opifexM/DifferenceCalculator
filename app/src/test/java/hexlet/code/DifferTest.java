@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class DifferTest {
-    private final Path resourceDirectory = Paths.get("src","test","resources","fixtures");
+    private final Path resourceDirectory = Paths.get("src", "test", "resources", "fixtures");
     private final String absolutePath = resourceDirectory.toFile().getAbsolutePath();
 
 
@@ -114,6 +114,7 @@ class DifferTest {
                 + "/" + file2, formatName);
         assertEquals(expected, actual);
     }
+
     @Test
     void testDifferStylishYaml1() throws IOException {
         String file1 = "file7.yml";
