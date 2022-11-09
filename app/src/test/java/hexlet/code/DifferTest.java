@@ -25,7 +25,7 @@ class DifferTest {
         String file1 = "file1.json";
         String file2 = "file2.json";
         String formatName = "stylish";
-        String expected = """                
+        String expected = """
                 {
                   - follow: false
                     host: hexlet.io
@@ -44,7 +44,7 @@ class DifferTest {
         String file1 = "file5.json";
         String file2 = "file0.json";
         String formatName = "stylish";
-        String expected = """                
+        String expected = """
                 {
                   - host: hexlet.io
                 }""";
@@ -58,7 +58,7 @@ class DifferTest {
         String file1 = "file0.json";
         String file2 = "file6.json";
         String formatName = "stylish";
-        String expected = """                
+        String expected = """
                 {
                   + timeout: 20
                 }""";
@@ -72,7 +72,7 @@ class DifferTest {
         String file1 = "file0.json";
         String file2 = "file0.json";
         String formatName = "stylish";
-        String expected = """                
+        String expected = """
                 {
                 }""";
         String actual = Differ.generate(absolutePath + "/" + file1, absolutePath
@@ -85,7 +85,7 @@ class DifferTest {
         String file1 = "file3.json";
         String file2 = "file4.json";
         String formatName = "stylish";
-        String expected = """                
+        String expected = """
                 {
                     chars1: [a, b, c]
                   - chars2: [d, e, f]
@@ -120,7 +120,7 @@ class DifferTest {
         String file1 = "file7.yml";
         String file2 = "file8.yml";
         String formatName = "stylish";
-        String expected = """                
+        String expected = """
                 {
                     chars1: [a, b, c]
                   - chars2: [d, e, f]

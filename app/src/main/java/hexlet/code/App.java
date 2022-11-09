@@ -5,9 +5,9 @@ import picocli.CommandLine;
 import java.io.IOException;
 import java.util.concurrent.Callable;
 
-@CommandLine.Command(name = "gendiff", mixinStandardHelpOptions = true, version = "checksum 4.0",
+@CommandLine.Command(name = "getDiff", mixinStandardHelpOptions = true, version = "1",
         description = "Compares two configuration files and shows a difference.")
-public class App implements Callable {
+public class App implements Callable<String> {
     @CommandLine.Parameters(index = "0", description = "path to first file")
     private String filepath1;
 
@@ -24,8 +24,8 @@ public class App implements Callable {
     }
 
     @Override
-    public Integer call() throws IOException {
+    public String call() throws IOException {
         System.out.println(Differ.generate(filepath1, filepath2, formatName));
-        return 0;
+        return "";
     }
 }
