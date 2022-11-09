@@ -47,7 +47,7 @@ public final class PlainFormat {
                 }
             }
         }
-        return sbReport.toString();
+        return sbReport.toString().trim();
     }
 
     private static Object createString(Object value) {

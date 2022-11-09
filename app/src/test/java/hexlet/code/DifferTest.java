@@ -166,8 +166,7 @@ class DifferTest {
                 Property 'numbers4' was added with value: [complex value]
                 Property 'setting1' was updated. From 'Some value' to 'Another value'
                 Property 'setting2' was updated. From 200 to 300
-                Property 'setting3' was updated. From true to 'none'
-                """;
+                Property 'setting3' was updated. From true to 'none'""";
         String actual = Differ.generate(absolutePath + "/" + file1, absolutePath
                 + "/" + file2, formatName);
         assertEquals(expected, actual);
@@ -178,9 +177,7 @@ class DifferTest {
         String file1 = "file5.json";
         String file2 = "file0.json";
         String formatName = "plain";
-        String expected = """
-                Property 'host' was removed
-                """;
+        String expected = "Property 'host' was removed";
         String actual = Differ.generate(absolutePath + "/" + file1, absolutePath
                 + "/" + file2, formatName);
         assertEquals(expected, actual);
@@ -191,9 +188,7 @@ class DifferTest {
         String file1 = "file0.json";
         String file2 = "file6.json";
         String formatName = "plain";
-        String expected = """
-                Property 'timeout' was added with value: 20
-                """;
+        String expected = "Property 'timeout' was added with value: 20";
         String actual = Differ.generate(absolutePath + "/" + file1, absolutePath
                 + "/" + file2, formatName);
         assertEquals(expected, actual);
@@ -204,8 +199,7 @@ class DifferTest {
         String file1 = "file0.json";
         String file2 = "file0.json";
         String formatName = "plain";
-        String expected = """
-                """;
+        String expected = "";
         String actual = Differ.generate(absolutePath + "/" + file1, absolutePath
                 + "/" + file2, formatName);
         assertEquals(expected, actual);
