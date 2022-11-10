@@ -4,6 +4,7 @@ package hexlet.code;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -22,21 +23,12 @@ class DifferTest {
 
     @Test
     void testDifferStylish1() throws IOException {
-        String file1 = "file1.json";
-        String file2 = "file2.json";
+        String file1 = "/file1.json";
+        String file2 = "/file2.json";
         String formatName = "stylish";
-        String expected = """
-                {
-                  - follow: false
-                    host: hexlet.io
-                  - proxy: 123.234.53.22
-                  - timeout: 50
-                  + timeout: 20
-                  + verbose: true
-                }""";
-        String actual = Differ.generate(absolutePath + "/" + file1, absolutePath
-                + "/" + file2, formatName);
-        assertEquals(expected, actual);
+        String fileExpected = "/exp1.json";
+        String actual = Differ.generate(absolutePath + file1, absolutePath + file2, formatName);
+        assertEquals(Files.readString(Path.of(absolutePath + fileExpected)), actual);
     }
 
     @Test
@@ -217,7 +209,7 @@ class DifferTest {
                   "chars2" : false,
                   "checked" : true,
                   "default" : [ "value1", "value2" ],
-                  "id" : "null",
+                  "id" : null,
                   "key2" : "value2",
                   "numbers1" : [ 1, 2, 3, 4 ],
                   "numbers2" : [ 22, 33, 44, 55 ],

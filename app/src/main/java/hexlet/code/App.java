@@ -7,7 +7,7 @@ import java.util.concurrent.Callable;
 
 @CommandLine.Command(name = "getDiff", mixinStandardHelpOptions = true, version = "1",
         description = "Compares two configuration files and shows a difference.")
-public class App implements Callable<String> {
+public class App implements Callable<Integer> {
     @CommandLine.Parameters(index = "0", description = "path to first file")
     private String filepath1;
 
@@ -24,8 +24,8 @@ public class App implements Callable<String> {
     }
 
     @Override
-    public final String call() throws IOException {
+    public final Integer call() throws IOException {
         System.out.println(Differ.generate(filepath1, filepath2, formatName));
-        return "";
+        return 0;
     }
 }
