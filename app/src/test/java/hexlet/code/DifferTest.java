@@ -24,7 +24,8 @@ class DifferTest {
             "file0.json, file6.json, stylish, stylish3.txt",
             "file3.json, file4.json, stylish, stylish4.txt",
     })
-    void testDifferTypeJsonFormatStylish(String file1, String file2, String format, String fileExpected) throws IOException {
+    void testDifferTypeJsonFormatStylish(String file1, String file2, String format, String fileExpected)
+            throws IOException {
         file1 = absolutePath + file1;
         file2 = absolutePath + file2;
         fileExpected = absolutePath + fileExpected;
@@ -50,7 +51,8 @@ class DifferTest {
             "file0.json, file6.json, plain, plain3.txt",
             "file0.json, file0.json, plain, plain0.txt",
     })
-    void testDifferTypeJsonFormatPlain(String file1, String file2, String format, String fileExpected) throws IOException {
+    void testDifferTypeJsonFormatPlain(String file1, String file2, String format, String fileExpected)
+            throws IOException {
         file1 = absolutePath + file1;
         file2 = absolutePath + file2;
         fileExpected = absolutePath + fileExpected;
@@ -65,7 +67,8 @@ class DifferTest {
             "file0.json, file6.json, json, json2.txt",
             "file0.json, file0.json, json, json0.txt",
     })
-    void testDifferTypeJsonFormatJson(String file1, String file2, String format, String fileExpected) throws IOException {
+    void testDifferTypeJsonFormatJson(String file1, String file2, String format, String fileExpected)
+            throws IOException {
         file1 = absolutePath + file1;
         file2 = absolutePath + file2;
         fileExpected = absolutePath + fileExpected;
