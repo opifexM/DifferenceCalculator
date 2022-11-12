@@ -19,11 +19,11 @@ class DifferTest {
 
     @ParameterizedTest
     @CsvSource({
-            "file0.json, file0.json, stylish, stylish0.txt",
-            "file1.json, file2.json, stylish, stylish1.txt",
-            "file5.json, file0.json, stylish, stylish2.txt",
-            "file0.json, file6.json, stylish, stylish3.txt",
-            "file3.json, file4.json, stylish, stylish4.txt",
+        "file0.json, file0.json, stylish, stylish0.txt",
+        "file1.json, file2.json, stylish, stylish1.txt",
+        "file5.json, file0.json, stylish, stylish2.txt",
+        "file0.json, file6.json, stylish, stylish3.txt",
+        "file3.json, file4.json, stylish, stylish4.txt",
     })
     void testDifferTypeJsonFormatStylish(String file1, String file2, String format, String fileExpected)
             throws IOException {
@@ -62,10 +62,10 @@ class DifferTest {
 
     @ParameterizedTest
     @CsvSource({
-            "file3.json, file4.json, json, json1.txt",
-            "file5.json, file0.json, json, json0.txt",
-            "file0.json, file6.json, json, json2.txt",
-            "file0.json, file0.json, json, json0.txt",
+        "file3.json, file4.json, json, json1.txt",
+        "file5.json, file0.json, json, json0.txt",
+        "file0.json, file6.json, json, json2.txt",
+        "file0.json, file0.json, json, json0.txt",
     })
     void testDifferTypeJsonFormatJson(String file1, String file2, String format, String fileExpected)
             throws IOException {
