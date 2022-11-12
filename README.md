@@ -15,7 +15,7 @@ Compares two configuration files and shows a difference.
 *Supported file formats:*
 - .json
 - .yml
-вв
+
 *Output formats:*
 - stylish
 - plain
