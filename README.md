@@ -1,5 +1,5 @@
 ### Hexlet tests and linter parserStatus:
-![GitHub Workflow](https://github.com/github/docs/actions/workflows/main.yml/badge.svg)
+![GitHub Workflow](https://github.com/opifexM/java-project-71/actions/workflows/github-actions.yml)
 [![Actions Status](https://github.com/opifexM/java-project-71/workflows/hexlet-check/badge.svg)](https://github.com/opifexM/java-project-71/actions)
 [![Maintainability](https://api.codeclimate.com/v1/badges/0884c1a4eb3d767d8d22/maintainability)](https://codeclimate.com/github/opifexM/java-project-71/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/0884c1a4eb3d767d8d22/test_coverage)](https://codeclimate.com/github/opifexM/java-project-71/test_coverage)
