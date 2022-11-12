@@ -2,6 +2,7 @@ package hexlet.code;
 
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -33,7 +34,6 @@ class DifferTest {
         assertEquals(Files.readString(Path.of(fileExpected)), actual);
     }
 
-
     @Test
     void testDifferTypeYamlFormatStylish() throws IOException {
         String file1 = absolutePath + "file7.yml";
@@ -46,10 +46,10 @@ class DifferTest {
 
     @ParameterizedTest
     @CsvSource({
-            "file3.json, file4.json, plain, plain1.txt",
-            "file5.json, file0.json, plain, plain2.txt",
-            "file0.json, file6.json, plain, plain3.txt",
-            "file0.json, file0.json, plain, plain0.txt",
+        "file3.json, file4.json, json, json1.txt",
+        "file5.json, file0.json, json, json0.txt",
+        "file0.json, file6.json, json, json2.txt",
+        "file0.json, file0.json, json, json0.txt",
     })
     void testDifferTypeJsonFormatPlain(String file1, String file2, String format, String fileExpected)
             throws IOException {
