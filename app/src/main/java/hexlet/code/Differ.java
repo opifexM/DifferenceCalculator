@@ -3,6 +3,7 @@ package hexlet.code;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Map;
 
 public final class Differ {
@@ -12,8 +13,8 @@ public final class Differ {
     public static String generate(String filepath1, String filepath2, String format) throws IOException {
         Map<String, Object> dataMap1 = readData(filepath1);
         Map<String, Object> dataMap2 = readData(filepath2);
-        Map<String, ParserStatus> report = DiffEngine.findDifference(dataMap1, dataMap2);
-        return Formatter.selectFormat(report, format, dataMap1, dataMap2);
+        List<ParserObject> differenceReport = DiffEngine.findDifference(dataMap1, dataMap2);
+        return Formatter.selectFormat(differenceReport, format);
     }
 
     public static String generate(String filepath1, String filepath2) throws IOException {

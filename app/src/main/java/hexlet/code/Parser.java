@@ -13,11 +13,11 @@ public final class Parser {
     private Parser() {
     }
 
-    public static Map<String, Object> start(String data, String fileExtension) throws IOException {
-        Map<String, Object> dataMap = switch (fileExtension) {
+    public static Map<String, Object> start(String data, String dataFormat) throws IOException {
+        Map<String, Object> dataMap = switch (dataFormat) {
             case "json" -> readJson(data);
             case "yml" -> readYaml(data);
-            default -> throw new ExtensionFileError("File extension '" + fileExtension + "' do not support.");
+            default -> throw new ExtensionFileError("Data format '" + dataFormat + "' do not support.");
         };
         return checkNullValues(dataMap);
     }

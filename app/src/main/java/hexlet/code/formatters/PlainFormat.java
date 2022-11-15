@@ -1,20 +1,24 @@
 package hexlet.code.formatters;
 
+import hexlet.code.ParserObject;
 import hexlet.code.ParserStatus;
 import hexlet.code.exception.ParserFormatError;
 
-import java.util.Map;
+import java.util.List;
 
 public final class PlainFormat {
     private PlainFormat() {
     }
 
-    public static String report(Map<String, ParserStatus> report,
-                                Map<String, Object> dataMap1, Map<String, Object> dataMap2) {
+    public static String report(List<ParserObject> differenceReport) {
         StringBuilder sbReport = new StringBuilder();
-        for (Map.Entry<String, ParserStatus> entry : report.entrySet()) {
-            String key = entry.getKey();
-            switch (entry.getValue()) {
+        for (ParserObject parserObject : differenceReport) {
+            String key = parserObject.key();
+            ParserStatus status = parserObject.status();
+            Object value1 = parserObject.value1();
+            Object value2 = parserObject.value2();
+
+            switch (status) {
                 case UNCHANGED -> {
                 }
                 case DELETED -> sbReport
@@ -26,17 +30,17 @@ public final class PlainFormat {
                         .append("Property '")
                         .append(key)
                         .append("' was added with value: ")
-                        .append(createStringFormat(dataMap2.get(key)))
+                        .append(createStringFormat(value1))
                         .append("\n");
                 case CHANGED -> sbReport
                         .append("Property '")
                         .append(key)
                         .append("' was updated. From ")
-                        .append(createStringFormat(dataMap1.get(key)))
+                        .append(createStringFormat(value1))
                         .append(" to ")
-                        .append(createStringFormat(dataMap2.get(key)))
+                        .append(createStringFormat(value2))
                         .append("\n");
-                default -> throw new ParserFormatError("Unexpected value: " + entry.getValue());
+                default -> throw new ParserFormatError("Unexpected value status: " + status);
             }
         }
         return sbReport.toString().trim();
