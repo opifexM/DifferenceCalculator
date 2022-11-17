@@ -61,7 +61,7 @@ class DifferTest {
     @ParameterizedTest
     @CsvSource({
         "file3.json, file4.json, json, json1.txt",
-        "file5.json, file0.json, json, json0.txt",
+        "file5.json, file0.json, json, json3.txt",
         "file0.json, file6.json, json, json2.txt",
         "file0.json, file0.json, json, json0.txt",
     })

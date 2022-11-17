@@ -1,3 +1,6 @@
-{
-  "timeout" : 20
-}
+[ {
+  "key" : "timeout",
+  "status" : "ADDED",
+  "value1" : 20,
+  "value2" : null
+} ]

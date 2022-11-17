@@ -1,0 +1,6 @@
+[ {
+  "key" : "host",
+  "status" : "DELETED",
+  "value1" : "hexlet.io",
+  "value2" : null
+} ]
