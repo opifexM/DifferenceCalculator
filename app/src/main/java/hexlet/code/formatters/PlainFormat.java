@@ -46,15 +46,15 @@ public final class PlainFormat {
         return sbReport.toString().trim();
     }
 
-    private static Object createStringFormat(Object value) {
+    private static String createStringFormat(Object value) {
         if (value.equals("null")) {
-            return value;
+            return value.toString();
         } else if (value instanceof String) {
             return "'" + value + "'";
         } else if (value instanceof Integer) {
-            return value;
+            return value.toString();
         } else if (value instanceof Boolean) {
-            return value;
+            return value.toString();
         }
         return "[complex value]";
     }
